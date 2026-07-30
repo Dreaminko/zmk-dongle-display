@@ -164,12 +164,12 @@ static void set_key_counts(struct zmk_widget_key_counter_status *widget,
 {
     char buf[24];
 
-    snprintf(buf, sizeof(buf), "Total: ");
+    snprintf(buf, sizeof(buf), "T ");
     size_t prefix_len = strlen(buf);
     format_with_commas(state.total, buf + prefix_len, sizeof(buf) - prefix_len);
     lv_label_set_text(widget->total_label, buf);
 
-    snprintf(buf, sizeof(buf), "Daily: ");
+    snprintf(buf, sizeof(buf), "D ");
     prefix_len = strlen(buf);
     format_with_commas(state.daily, buf + prefix_len, sizeof(buf) - prefix_len);
     lv_label_set_text(widget->daily_label, buf);
@@ -206,12 +206,12 @@ int zmk_widget_key_counter_status_init(struct zmk_widget_key_counter_status *wid
 
     /* Show current values (loaded from settings or 0) */
     char buf[24];
-    snprintf(buf, sizeof(buf), "Total: ");
+    snprintf(buf, sizeof(buf), "T ");
     size_t prefix_len = strlen(buf);
     format_with_commas(total_count, buf + prefix_len, sizeof(buf) - prefix_len);
     lv_label_set_text(widget->total_label, buf);
 
-    snprintf(buf, sizeof(buf), "Daily: ");
+    snprintf(buf, sizeof(buf), "D ");
     prefix_len = strlen(buf);
     format_with_commas(daily_count, buf + prefix_len, sizeof(buf) - prefix_len);
     lv_label_set_text(widget->daily_label, buf);
