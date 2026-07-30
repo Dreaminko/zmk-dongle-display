@@ -12,15 +12,13 @@
 #include "widgets/output_status.h"
 #include "widgets/hid_indicators.h"
 #include "widgets/wpm_status.h"
+#include "widgets/key_counter_status.h"
 
 #include <zephyr/logging/log.h>
 LOG_MODULE_DECLARE(zmk, CONFIG_ZMK_LOG_LEVEL);
 
 static struct zmk_widget_output_status output_status_widget;
-
-#if IS_ENABLED(CONFIG_ZMK_BATTERY)
 static struct zmk_widget_dongle_battery_status dongle_battery_status_widget;
-#endif
 
 #if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_LAYER)
 static struct zmk_widget_layer_status layer_status_widget;
@@ -38,8 +36,10 @@ static struct zmk_widget_hid_indicators hid_indicators_widget;
 static struct zmk_widget_bongo_cat bongo_cat_widget;
 #endif
 
-#if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_WPM)
 static struct zmk_widget_wpm_status wpm_status_widget;
+
+#if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_KEY_COUNTER)
+static struct zmk_widget_key_counter_status key_counter_status_widget;
 #endif
 
 lv_style_t global_style;
@@ -50,9 +50,6 @@ lv_obj_t *zmk_display_status_screen() {
     screen = lv_obj_create(NULL);
 
     lv_style_init(&global_style);
-    lv_style_set_bg_color(&global_style, lv_color_white());
-    lv_style_set_bg_opa(&global_style, LV_OPA_COVER);
-    lv_style_set_text_color(&global_style, lv_color_black());
     lv_style_set_text_font(&global_style, &lv_font_unscii_8);
     lv_style_set_text_letter_space(&global_style, 1);
     lv_style_set_text_line_space(&global_style, 1);
@@ -60,6 +57,11 @@ lv_obj_t *zmk_display_status_screen() {
     
     zmk_widget_output_status_init(&output_status_widget, screen);
     lv_obj_align(zmk_widget_output_status_obj(&output_status_widget), LV_ALIGN_TOP_LEFT, 0, 0);
+
+#if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_KEY_COUNTER)
+    zmk_widget_key_counter_status_init(&key_counter_status_widget, screen);
+    lv_obj_align_to(zmk_widget_key_counter_status_obj(&key_counter_status_widget), zmk_widget_output_status_obj(&output_status_widget), LV_ALIGN_OUT_BOTTOM_LEFT, 0, 2);
+#endif
 
 #if IS_ENABLED(CONFIG_ZMK_DONGLE_DISPLAY_WPM)
     zmk_widget_wpm_status_init(&wpm_status_widget, screen);

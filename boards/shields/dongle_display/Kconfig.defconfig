@@ -9,7 +9,7 @@ endchoice
 
 config ZMK_DISPLAY_STATUS_SCREEN_CUSTOM
     select LV_USE_LABEL
-    select LV_USE_IMAGE
+    select LV_USE_IMG
     select LV_USE_CANVAS
     select LV_USE_ANIMIMG 
     select LV_USE_ANIMATION
@@ -58,15 +58,19 @@ config ZMK_DONGLE_DISPLAY_WPM_DISABLED_LAYERS
     string "Layers in which the widget is disabled, comma separated"
     default ""
 
+config ZMK_DONGLE_DISPLAY_KEY_COUNTER
+    bool "Display the key counter widget (Total / Daily)"
+    default n
+
 choice ZMK_DISPLAY_WORK_QUEUE
     default ZMK_DISPLAY_WORK_QUEUE_DEDICATED
 endchoice
 
 config LV_Z_MEM_POOL_SIZE
-    default 16384
+    default 8192
 
 config LV_Z_VDB_SIZE
-    default 100
+    default 64
 
 config LV_DPI_DEF
     default 148
