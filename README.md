@@ -56,6 +56,8 @@ This fork adds the following features on top of [englmaxi/zmk-dongle-display](ht
 
 ### Key counter widget
 
+<img width="4032" height="3024" alt="da9de5fb3298ee12ffa951055db5b648" src="https://github.com/user-attachments/assets/a42ca548-62be-4228-9af2-1989b00aeab3" />
+
 Displays a per-day and lifetime key-press counter on the OLED, formatted with comma separators (e.g. `T 1,234` / `D 56`).
 
 The total counter is persisted to flash and survives reboots; the daily counter resets to zero on each boot.
