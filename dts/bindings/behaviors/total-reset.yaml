@@ -1,5 +1,0 @@
-# Copyright (c) 2024 The ZMK Contributors
-# SPDX-License-Identifier: MIT
-
-description: Reset total key counter to zero
-compatible: "zmk,behavior-total-reset"

@@ -142,15 +142,30 @@ struct key_counter_state {
     uint32_t daily;
 };
 
+/* HID Keyboard page usage IDs for F13 / F14 (used as reset triggers) */
+#define KCS_F13 0x68
+#define KCS_F14 0x69
+
 static struct key_counter_state get_state(const zmk_event_t *_eh)
 {
     const struct zmk_keycode_state_changed *ev =
         as_zmk_keycode_state_changed(_eh);
 
-    if (ev && ev->state) {
-        total_count++;
-        daily_count++;
-        schedule_save();
+    if (ev && ev->state && ev->usage_page == 0x07) {
+        switch (ev->keycode) {
+        case KCS_F13:
+            daily_count = 0;
+            break;
+        case KCS_F14:
+            total_count = 0;
+            schedule_save();
+            break;
+        default:
+            total_count++;
+            daily_count++;
+            schedule_save();
+            break;
+        }
     }
 
     return (struct key_counter_state){
@@ -225,32 +240,4 @@ int zmk_widget_key_counter_status_init(struct zmk_widget_key_counter_status *wid
 lv_obj_t *zmk_widget_key_counter_status_obj(struct zmk_widget_key_counter_status *widget)
 {
     return widget->obj;
-}
-
-/* ---- public reset API (used by &daily_reset / &total_reset behaviors) ---- */
-
-static void update_all_widgets(void)
-{
-    struct key_counter_state state = {
-        .total = total_count,
-        .daily = daily_count,
-    };
-    struct zmk_widget_key_counter_status *widget;
-    SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node)
-    {
-        set_key_counts(widget, state);
-    }
-}
-
-void zmk_key_counter_reset_daily(void)
-{
-    daily_count = 0;
-    update_all_widgets();
-}
-
-void zmk_key_counter_reset_total(void)
-{
-    total_count = 0;
-    schedule_save();
-    update_all_widgets();
 }

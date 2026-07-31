@@ -68,14 +68,14 @@ CONFIG_ZMK_DONGLE_DISPLAY_KEY_COUNTER=y
 
 ### Reset behaviors
 
-Two custom behaviors let you bind physical keys to reset the counters on the fly:
+Reset the counters by binding **F13** and **F14** to keys—no custom behaviors needed.
 
-| Binding          | Effect                              |
-|------------------|-------------------------------------|
-| `&daily_reset`   | Reset the daily counter to zero     |
-| `&total_reset`   | Reset the total counter to zero     |
+| Keycode     | Effect                              |
+|-------------|-------------------------------------|
+| `&kp F13`   | Reset the daily counter to zero     |
+| `&kp F14`   | Reset the total counter to zero     |
 
-Use them in your keymap like any other behavior—no code changes required. After wiring them in the web keymap editor (or your `.keymap` file), pressing the bound key immediately resets the corresponding counter and saves the total to flash.
+In ZMK Studio, search for **F13** / **F14** under the keycodes category. When pressed, the bound key resets the counter immediately and also sends F13/F14 to the host (harmless in virtually all applications).
 
 ## Configuration
 
