@@ -9,10 +9,12 @@
         daily_reset: daily_reset {
             compatible = "zmk,behavior-daily-reset";
             #binding-cells = <0>;
+            label = "Daily Reset";
         };
         total_reset: total_reset {
             compatible = "zmk,behavior-total-reset";
             #binding-cells = <0>;
+            label = "Total Reset";
         };
     };
 };
