@@ -45,9 +45,35 @@ For setup examples, refer to the shields in my [`zmk-config`](https://github.com
 - active modifiers
 - bongo cat
 - highest layer name
+- key counter (Total / Daily)
 - output status
 - peripheral battery levels
 - WPM meter
+
+## Differences from upstream
+
+This fork adds the following features on top of [englmaxi/zmk-dongle-display](https://github.com/englmaxi/zmk-dongle-display):
+
+### Key counter widget
+
+Displays a per-day and lifetime key-press counter on the OLED, formatted with comma separators (e.g. `T 1,234` / `D 56`).
+
+The total counter is persisted to flash and survives reboots; the daily counter resets to zero on each boot.
+
+```ini
+CONFIG_ZMK_DONGLE_DISPLAY_KEY_COUNTER=y
+```
+
+### Reset behaviors
+
+Two custom behaviors let you bind physical keys to reset the counters on the fly:
+
+| Binding          | Effect                              |
+|------------------|-------------------------------------|
+| `&daily_reset`   | Reset the daily counter to zero     |
+| `&total_reset`   | Reset the total counter to zero     |
+
+Use them in your keymap like any other behavior—no code changes required. After wiring them in the web keymap editor (or your `.keymap` file), pressing the bound key immediately resets the corresponding counter and saves the total to flash.
 
 ## Configuration
 
