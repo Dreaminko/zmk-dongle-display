@@ -226,3 +226,31 @@ lv_obj_t *zmk_widget_key_counter_status_obj(struct zmk_widget_key_counter_status
 {
     return widget->obj;
 }
+
+/* ---- public reset API (used by &daily_reset / &total_reset behaviors) ---- */
+
+static void update_all_widgets(void)
+{
+    struct key_counter_state state = {
+        .total = total_count,
+        .daily = daily_count,
+    };
+    struct zmk_widget_key_counter_status *widget;
+    SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node)
+    {
+        set_key_counts(widget, state);
+    }
+}
+
+void zmk_key_counter_reset_daily(void)
+{
+    daily_count = 0;
+    update_all_widgets();
+}
+
+void zmk_key_counter_reset_total(void)
+{
+    total_count = 0;
+    schedule_save();
+    update_all_widgets();
+}

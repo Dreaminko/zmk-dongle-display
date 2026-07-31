@@ -18,3 +18,6 @@ struct zmk_widget_key_counter_status {
 
 int zmk_widget_key_counter_status_init(struct zmk_widget_key_counter_status *widget, lv_obj_t *parent);
 lv_obj_t *zmk_widget_key_counter_status_obj(struct zmk_widget_key_counter_status *widget);
+
+void zmk_key_counter_reset_daily(void);
+void zmk_key_counter_reset_total(void);

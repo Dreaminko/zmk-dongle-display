@@ -31,5 +31,6 @@ if(CONFIG_ZMK_DISPLAY AND CONFIG_ZMK_DISPLAY_STATUS_SCREEN_CUSTOM AND ((NOT CONF
     endif()
     if (CONFIG_ZMK_DONGLE_DISPLAY_KEY_COUNTER)
         zephyr_library_sources(widgets/key_counter_status.c)
+        zephyr_library_sources(key_counter_reset.c)
     endif()
 endif()

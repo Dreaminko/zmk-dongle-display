@@ -3,3 +3,16 @@
  *
  * SPDX-License-Identifier: MIT
  */
+
+/ {
+    behaviors {
+        daily_reset: daily_reset {
+            compatible = "zmk,behavior-daily-reset";
+            #binding-cells = <0>;
+        };
+        total_reset: total_reset {
+            compatible = "zmk,behavior-total-reset";
+            #binding-cells = <0>;
+        };
+    };
+};
